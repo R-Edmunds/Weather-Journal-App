@@ -22,3 +22,13 @@ app.use(express.static('website'));
 
 
 // Setup Server
+const port = 8080;
+const server = app.listen(port, listener);
+
+function listener(request, response) {
+  app.get("/api/project-data", test);
+};
+
+function test(request, response) {
+  response.send("server listening");
+};
