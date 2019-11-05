@@ -27,7 +27,13 @@ const port = 8080;
 const server = app.listen(port, listener);
 
 function listener(request, response) {
-  app.get("/api/project-data", test);
+  app.get("/api/test", test);
+  app.get("/api/project-data", getProjectData);
+};
+
+// send projectData as JSON string
+function getProjectData(request, response) {
+  response.send(projectData);  // express converts obj to json, sets json content-type
 };
 
 async function test(request, response) {
