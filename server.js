@@ -5,6 +5,7 @@ projectData = {};
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const fetch = require("node-fetch");
 
 // Start up an instance of app
 const app = express();
@@ -29,6 +30,20 @@ function listener(request, response) {
   app.get("/api/project-data", test);
 };
 
-function test(request, response) {
-  response.send("server listening");
+async function test(request, response) {
+  const owm = require("./api-creds.json");
+  const data = await owmQuery("London,UK");
+  response.send(data);  // express converts obj to json, sets json content-type
+};
+
+// return OpenWeatherMap query response
+async function owmQuery(query) {
+  try {
+    const owm = require("./api-creds.json");
+    const response = await fetch(`${owm.baseUrl}q=${query}&appid=${owm.apiKey}`);
+    const body = response.json();
+    return body;
+  } catch(error) {
+    console.log("owmQuery error: " + error);
+  }
 };
