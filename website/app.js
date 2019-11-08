@@ -2,21 +2,19 @@
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
+let newDate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+
 
 // fetch project data
 const fetchProjectData = async () => {
   try {
     const response = await fetch("/api/project-data");
     const body = await response.json();
-    console.log("fetchProjectData, success: " + JSON.stringify(body));
     return body;
   } catch (error) {
     console.log("fetchProjectData, failure: " + error);
   };
 };
-
-// fetchProjectData();
 
 
 // call fetchProjectData() and update respective page elements
@@ -37,9 +35,9 @@ const updateElements = async () => {
     dateDiv.id = "date";
     tempDiv.id = "temp";
     contentDiv.id = "content";
-    dateDiv.innerHTML = newDate;
-    tempDiv.innerHTML = projectData.temperature;
-    contentDiv.innerHTML = projectData.feelings + "<hr />";
+    dateDiv.innerHTML = `<strong>Entry date: </strong>${newDate}`;
+    tempDiv.innerHTML = `<strong>Current temperature: </strong>${projectData.temperature} &#8451;`;
+    contentDiv.innerHTML = `<strong>How you feel: </strong>${projectData.feelings}<hr />`;
     docFragment.appendChild(dateDiv);
     docFragment.appendChild(tempDiv);
     docFragment.appendChild(contentDiv);

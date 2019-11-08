@@ -43,7 +43,7 @@ const postProjectData = async (request, response) => {
     projectData = {
       zip: postData.zip,
       feelings: postData.feelings,
-      temperature: `${tempMetric}&#8451;`
+      temperature: tempMetric
     };
     response.send(projectData);
   } catch (error) {
