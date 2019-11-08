@@ -34,11 +34,21 @@ function listener(request, response) {
 };
 
 // take POST data, add to projectData global var
-function postProjectData(request, response) {
+const postProjectData = async (request, response) => {
   const postData = request.body;
-  projectData = postData;
-  response.send(postData);  // express converts obj to json, sets json content-type
-  // console.log(`\nPOST: ${JSON.stringify(postData)}\nprojectData: ${JSON.stringify(projectData)}`);
+  try {
+    const owmResponse = await owmQuery(postData.zip);
+    const tempMetric = (owmResponse.main.temp - 273.15).toFixed(1);
+    console.log(owmResponse);
+    projectData = {
+      zip: postData.zip,
+      feelings: postData.feelings,
+      temperature: `${tempMetric}&#8451;`
+    };
+    response.send(projectData);
+  } catch (error) {
+    console.log("postProjectData error:  " + error);
+  };
 };
 
 // send projectData as JSON string
