@@ -30,6 +30,15 @@ const server = app.listen(port, listener);
 function listener(request, response) {
   app.get("/api/test", test);
   app.get("/api/project-data", getProjectData);
+  app.post("/api/project-data", postProjectData);
+};
+
+// take POST data, add to projectData global var
+function postProjectData(request, response) {
+  const postData = request.body;
+  projectData = postData;
+  response.send(postData);  // express converts obj to json, sets json content-type
+  // console.log(`\nPOST: ${JSON.stringify(postData)}\nprojectData: ${JSON.stringify(projectData)}`);
 };
 
 // send projectData as JSON string
