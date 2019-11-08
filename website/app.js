@@ -39,15 +39,14 @@ const updateElements = async () => {
     contentDiv.id = "content";
     dateDiv.innerHTML = newDate;
     tempDiv.innerHTML = projectData.temperature;
-    contentDiv.innerHTML = projectData.feelings;
+    contentDiv.innerHTML = projectData.feelings + "<hr />";
     docFragment.appendChild(dateDiv);
     docFragment.appendChild(tempDiv);
     docFragment.appendChild(contentDiv);
 
+    // update viewport
     const entryHolder = document.querySelector("div#entryHolder");
-    entryHolder.appendChild(docFragment);
-
-    // console.log(projectData);
+    entryHolder.insertBefore(docFragment, entryHolder.querySelector("div#date"));
   } catch (error) {
     console.log("updateElements error:  " + error);
   };
