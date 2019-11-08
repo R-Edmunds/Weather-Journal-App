@@ -53,9 +53,38 @@ const updateElements = async () => {
   };
 };
 
+
+// POST form data to /api/project-data and call updateElements()
+const postProjectDataAPI = async () => {
+  // get element values
+  const postData = {
+    zip: document.querySelector("input#zip").value,
+    feelings: document.querySelector("textarea#feelings").value
+  };
+  // use fetch to make POST if data present in both form fields
+  if (zip && feelings) {
+    try {
+      const url = "/api/project-data";
+      const response = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        crendentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(postData)
+      })
+      updateElements();
+    } catch (error) {
+      console.log("postProjectDataAPI error:  " + error);
+    };
+  };
+};
+
+
 function clickGenerateEvent() {
   const button = document.querySelector("button#generate");
-  button.addEventListener("click", function () { setTimeout(updateElements, 0) } );
+  button.addEventListener("click", function () { setTimeout(postProjectDataAPI, 0) } );
 };
 
 clickGenerateEvent();
