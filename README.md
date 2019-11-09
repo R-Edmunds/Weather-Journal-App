@@ -1,20 +1,18 @@
 # Weather-Journal App Project
 
+## About
 
-## Overview
+This is my first dive into node.js, the npm package manager and the express library.
 
-This project requires you to create an asynchronous web app that uses Web API and user data to dynamically update the UI. 
-
+The backend `server.js` serves static html, css and client js. The front-end `website/app.js` makes API calls to `server.js`, `server.js` then makes a call to the OpenWeatherMap API to fetch the current temperature of a specifed location. The front-end js code then makes another API call to `server.js`, and dynamically updates the elements of the webpage.
 
 ## Instructions
 
-This will require modifying the `server.js` file and the `website/app.js` file. You can see `index.html` for element references, and once you are finished with the project steps, you can use `style.css` to style your application to customized perfection.
-
-
-## Extras
-
-If you are interested in testing your code as you go, you can use `tests.js` as a template for writing and running some basic tests for your code.
-
+1. clone this repo
+1. navigate to local repo directory within your CLI
+1. run `npm install express body-parser cors node-fetch` to install dependencies
+1. add your personal OpenWeatherMap API key to `api-creds.json_template`. Rename this file removing the ___template__ suffix
+1. to start the server run `node ./server.js`
 
 ## Plan
 
@@ -35,8 +33,8 @@ If you are interested in testing your code as you go, you can use `tests.js` as 
 
 ### Routes and My API
 
-1. Setup GET route for `/api/projectData` which returns the `projectData` object data as json string
-1. Setup POST route `/api/projectData` which appends to the `projectData` object in memory
+1. Setup GET route for `/api/project-data` which returns the `projectData` object data as json string
+1. Setup POST route `/api/project-data` which appends to the `projectData` object in memory
 
 ### Client-side
 
