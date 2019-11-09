@@ -22,10 +22,10 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
 
-
 // Setup Server
 const port = 8080;
 const server = app.listen(port, listener);
+
 
 function listener(request, response) {
   app.get("/api/test", test);
@@ -33,33 +33,43 @@ function listener(request, response) {
   app.post("/api/project-data", postProjectData);
 };
 
+
 // take POST data, add to projectData global var
 const postProjectData = async (request, response) => {
   const postData = request.body;
-  try {
-    const owmResponse = await owmQuery(postData.zip);
-    const tempMetric = (owmResponse.main.temp - 273.15).toFixed(1);
-    projectData = {
-      zip: postData.zip,
-      feelings: postData.feelings,
-      temperature: tempMetric
+  if (postData.zip && postData.feelings) {
+    try {
+      const owmResponse = await owmQuery(postData.zip);
+      const tempMetric = (owmResponse.main.temp - 273.15).toFixed(1);
+      projectData = {
+        zip: postData.zip,
+        feelings: postData.feelings,
+        temperature: tempMetric
+      };
+      response.send(projectData);
+    } catch (error) {
+      console.log("postProjectData error:  " + error);
     };
-    response.send(projectData);
-  } catch (error) {
-    console.log("postProjectData error:  " + error);
+  } else {
+    const error = "postProjectData error: Malformed POST data";
+    console.log(error);
+    response.send(error);
   };
 };
+
 
 // send projectData as JSON string
 function getProjectData(request, response) {
   response.send(projectData);  // express converts obj to json, sets json content-type
 };
 
+
 async function test(request, response) {
   const owm = require("./api-creds.json");
   const data = await owmQuery("London,UK");
   response.send(data);  // express converts obj to json, sets json content-type
 };
+
 
 // return OpenWeatherMap query response
 async function owmQuery(query) {
