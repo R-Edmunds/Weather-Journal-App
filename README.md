@@ -15,6 +15,7 @@ The backend `server.js` serves static html, css and client js. The front-end `we
 1. run `npm install express body-parser cors node-fetch` to install dependencies
 1. add your personal OpenWeatherMap API key to `api-creds.json_template`. Rename this file removing the ___template__ suffix
 1. to start the server run `node ./server.js`
+1. navigate to http://127.0.0.1:8080 in your favourite web-browser
 
 ## Plan
 
