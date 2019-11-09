@@ -59,8 +59,7 @@ const postProjectDataAPI = async () => {
     feelings: document.querySelector("textarea#feelings").value
   };
   // use fetch to make POST if data present in both form fields
-  // TODO: fix bug, if statement always true
-  if (zip && feelings) {
+  if (postData.zip && postData.feelings) {
     try {
       const url = "/api/project-data";
       const response = await fetch(url, {
