@@ -1,4 +1,6 @@
-# Weather-Journal App Project
+# Udacity Weather-Journal App Front-End Project
+
+### Robin Edmunds 2019
 
 ## About
 
