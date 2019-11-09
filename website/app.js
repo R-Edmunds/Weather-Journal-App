@@ -12,7 +12,7 @@ const fetchProjectData = async () => {
     const body = await response.json();
     return body;
   } catch (error) {
-    console.log("fetchProjectData, failure: " + error);
+    console.log("fetchProjectData error: " + error);
   };
 };
 
@@ -27,7 +27,7 @@ const updateElements = async () => {
     inputFeelings.value = "";
     // pull data from /api/project-data
     const projectData = await fetchProjectData();
-    // create elements in fragment
+    // create elements and append to fragment
     const docFragment = document.createDocumentFragment();
     const dateDiv = document.createElement("div");
     const tempDiv = document.createElement("div");
@@ -59,6 +59,7 @@ const postProjectDataAPI = async () => {
     feelings: document.querySelector("textarea#feelings").value
   };
   // use fetch to make POST if data present in both form fields
+  // TODO: fix bug, if statement always true
   if (zip && feelings) {
     try {
       const url = "/api/project-data";
