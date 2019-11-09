@@ -1,6 +1,6 @@
 // Setup empty JS object to act as endpoint for all routes
 // let projectData = {};
-let projectData = {zip: "1111", feelings: "powerful", temperature: 99};
+let projectData = {};
 
 // Require Express to run server and routes
 const express = require("express");
@@ -39,7 +39,6 @@ const postProjectData = async (request, response) => {
   try {
     const owmResponse = await owmQuery(postData.zip);
     const tempMetric = (owmResponse.main.temp - 273.15).toFixed(1);
-    console.log(owmResponse);
     projectData = {
       zip: postData.zip,
       feelings: postData.feelings,
